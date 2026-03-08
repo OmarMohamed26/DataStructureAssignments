@@ -18,7 +18,7 @@ public class LinkedListExercise implements ILinkedListExercise {
      */
     public boolean compare(ILinkedList list1, ILinkedList list2) {
 
-        return list1.toString().equals(list2.toString());
+        return list1.toString().equals(list2.toString()); // I know this is a lazy way of doing things but it's good enough for me
     }
 
     public void runCompareTwoLists() {
