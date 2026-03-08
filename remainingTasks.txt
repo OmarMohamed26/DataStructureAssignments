@@ -1,0 +1,6 @@
+1 make the Dobly linked list the follow ILinkedList interface
+2 adabt the obly linked list solution to work on hacker ranck
+3 solve reverse linked list (it's a singly linked list problem so you will use the class I have implemented)
+4 solve merge two sorted linked list (it's a singly linked list problem so you will use the class I have implemented)
+
+that's it :)
