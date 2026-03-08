@@ -1,11 +1,12 @@
 
+import java.util.Scanner;
+
 /**
  * A basic singly linked list implementation using inner classes.
  *
  * @author Omar Mohamed
  *
- ********** @version
- * 1.0
+ ********** @version 1.0
  */
 public class SingleLinkedList implements ILinkedList {
 
@@ -65,6 +66,120 @@ public class SingleLinkedList implements ILinkedList {
      */
     public static void main(String[] args) {
 
+        Scanner in = new Scanner(System.in);
+
+        SingleLinkedList list = readFromStdin(in);
+
+        String operation = in.nextLine();
+
+        switch (operation) {
+            case "add": {
+                Integer num = Integer.parseInt(in.nextLine());
+                list.add(num);
+                System.out.println(list);
+                break;
+            }
+            case "addToIndex": {
+                Integer index = Integer.parseInt(in.nextLine());
+                Integer num = Integer.parseInt(in.nextLine());
+                try {
+                    list.add(index, num);
+                    System.out.println(list);
+                } catch (Exception e) {
+                    System.out.println("Error");
+                }
+                break;
+            }
+            case "set": {
+                Integer index = Integer.parseInt(in.nextLine());
+                Integer num = Integer.parseInt(in.nextLine());
+                try {
+                    list.set(index, num);
+                    System.out.println(list);
+                } catch (Exception e) {
+                    System.out.println("Error");
+                }
+                break;
+            }
+            case "clear": {
+                list.clear();
+                System.out.println(list);
+                break;
+            }
+            case "remove": {
+                Integer index = Integer.parseInt(in.nextLine());
+                try {
+                    list.remove(index);
+                    System.out.println(list);
+                } catch (Exception e) {
+                    System.out.println("Error");
+                }
+                break;
+            }
+            case "get": {
+                Integer index = Integer.parseInt(in.nextLine());
+                try {
+                    System.out.println(list.get(index));
+                } catch (Exception e) {
+                    System.out.println("Error");
+                }
+                break;
+            }
+            case "isEmpty": {
+                if (list.isEmpty()) {
+                    System.out.println("True");
+                } else {
+                    System.out.println("False");
+                }
+                break;
+            }
+            case "contains": {
+                Integer num = Integer.parseInt(in.nextLine());
+                if (list.contains(num)) {
+                    System.out.println("True");
+                } else {
+                    System.out.println("False");
+                }
+                break;
+            }
+            case "sublist": {
+                Integer fromIndex = Integer.parseInt(in.nextLine());
+                Integer toIndex = Integer.parseInt(in.nextLine());
+                try {
+                    System.out.println(list.sublist(fromIndex, toIndex));
+                } catch (Exception e) {
+                    System.out.println("Error");
+                }
+                break;
+            }
+            case "size": {
+                System.out.println(list.size());
+                break;
+            }
+
+            default:
+                in.close();
+                throw new AssertionError();
+        }
+
+        in.close();
+    }
+
+    public static SingleLinkedList readFromStdin(Scanner scanner) {
+        String line = scanner.nextLine().replaceAll("\\[|\\]", "").trim();
+        SingleLinkedList list = new SingleLinkedList();
+
+        if (!line.isEmpty()) {
+            String[] tokens = line.split(",\\s*");
+            for (String tok : tokens) {
+                list.add(Integer.valueOf(tok.trim()));
+            }
+        }
+
+        return list;
+    }
+
+    private void test() {
         SingleLinkedList list = new SingleLinkedList();
 
         // Test normal adds
