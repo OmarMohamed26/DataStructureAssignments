@@ -1,3 +1,5 @@
+package linkedlist;
+
 
 import java.util.EmptyStackException;
 import java.util.Scanner;
@@ -7,7 +9,7 @@ import java.util.Scanner;
  *
  * @author Omar Mohamed
  *
- ********** @version 1.0
+  * @version 1.0
  */
 public class SingleLinkedList implements ILinkedList {
 
@@ -61,7 +63,7 @@ public class SingleLinkedList implements ILinkedList {
     private int size = 0;
 
     /**
-     * Main method used for testing the functionomarty of SingleLinkedList.
+     * Main method used for testing the functionality of SingleLinkedList.
      *
      * @param args Command line arguments
      */
@@ -254,10 +256,10 @@ public class SingleLinkedList implements ILinkedList {
     /**
      * Make an empty list from an array.
      *
-     * @param arr the array of objects you want to initiomarze the Linked list
+     * @param arr the array of objects you want to initialize the Linked list
      * with.
      */
-    @SuppressWarnings({""})
+    @SuppressWarnings("all")
     public SingleLinkedList(Object[] arr) {
         for (Object obj : arr) {
             this.add(obj);

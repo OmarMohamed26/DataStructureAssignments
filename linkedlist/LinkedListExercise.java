@@ -1,7 +1,18 @@
+package linkedlist;
+
 
 import java.util.Scanner;
 
+/**
+ * Provides linked-list exercise helper methods.
+ */
 public class LinkedListExercise implements ILinkedListExercise {
+
+    /**
+     * Creates a linked-list exercise helper.
+     */
+    public LinkedListExercise() {
+    }
 
     /**
      * @param list a linked list that you are supposed to reverse
@@ -21,6 +32,9 @@ public class LinkedListExercise implements ILinkedListExercise {
         return list1.toString().equals(list2.toString()); // I know this is a lazy way of doing things but it's good enough for me
     }
 
+    /**
+     * Reads multiple test cases and prints whether each pair of lists is equal.
+     */
     public void runCompareTwoLists() {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
 

@@ -1,3 +1,7 @@
+package stack;
+
+import linkedlist.SingleLinkedList;
+
 
 /**
  * A simple LIFO stack backed by a singly linked list.
