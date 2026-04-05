@@ -1,4 +1,5 @@
 
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 /**
@@ -165,6 +166,14 @@ public class SingleLinkedList implements ILinkedList {
         in.close();
     }
 
+    /**
+     * Reads a list from standard input using bracketed comma-separated format
+     * (e.g., {@code [1, 2, 3]}) and returns it as a {@link SingleLinkedList}.
+     *
+     * @param scanner scanner used to read one input line
+     * @return a {@code SingleLinkedList} containing the parsed values, or an
+     * empty list if input is empty
+     */
     public static SingleLinkedList readFromStdin(Scanner scanner) {
         String line = scanner.nextLine().replaceAll("\\[|\\]", "").trim();
         SingleLinkedList list = new SingleLinkedList();
@@ -179,6 +188,16 @@ public class SingleLinkedList implements ILinkedList {
         return list;
     }
 
+    /**
+     * A simple internal test routine that exercises common list operations.
+     *
+     * <p>
+     * This method is intended for manual/debugging use only. It creates several
+     * SingleLinkedList instances and performs operations including add, add at
+     * index, construction from an array, get, set, remove, contains, handling
+     * of null elements, sublist and clear. Results are printed to standard
+     * output to help verify correct behavior.</p>
+     */
     private void test() {
         SingleLinkedList list = new SingleLinkedList();
 
@@ -305,7 +324,7 @@ public class SingleLinkedList implements ILinkedList {
     /**
      * Inserts the specified element at the end of the list.
      *
-     * @param element
+     * @param element the element you want to append to the list
      */
     @Override
     public void add(Object element) { // add tail
@@ -322,6 +341,13 @@ public class SingleLinkedList implements ILinkedList {
     }
 
     @Override
+    /**
+     * Returns the element at the specified position in this list.
+     *
+     * @param index index of the element to return
+     * @return the element at the specified position
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     public Object get(int index) {
 
         if (index >= this.size() || index < 0) {
@@ -335,6 +361,38 @@ public class SingleLinkedList implements ILinkedList {
         }
 
         return node.getObj();
+    }
+
+    /**
+     * Returns the first (head) element in the list.
+     *
+     * @return the head element of this list
+     * @throws EmptyStackException if the list is empty
+     */
+    public Object getHead() {
+
+        if (this.isEmpty()) {
+            throw new EmptyStackException();
+        }
+
+        return this.head.getObj();
+
+    }
+
+    /**
+     * Returns the last (tail) element in the list.
+     *
+     * @return the last element of this list
+     * @throws EmptyStackException if the list is empty
+     */
+    public Object getTail() {
+
+        if (this.isEmpty()) {
+            throw new EmptyStackException();
+        }
+
+        return this.tail.getObj();
+
     }
 
     /**
