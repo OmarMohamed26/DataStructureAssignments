@@ -1,7 +1,85 @@
-package linkedlist;
+package queue;
 
 import java.util.EmptyStackException;
 import java.util.Scanner;
+
+interface ILinkedList {
+
+    /**
+     * Inserts a specified element at the specified position in the list.
+     *
+     * @param index the target index.
+     * @param element the element to insert.
+     */
+    void add(int index, Object element);
+
+    /**
+     * Inserts the specified element at the end of the list.
+     *
+     * @param element the element to add to the end of the list.
+     */
+    void add(Object element);
+
+    /**
+     * Returns the element at the given index.
+     *
+     * @param index the position of the element to return.
+     * @return the element at the specified position in this list.
+     */
+    Object get(int index);
+
+    /**
+     * Replaces the element at the specified position in this list.
+     *
+     * @param index the index to update.
+     * @param element the new element.
+     */
+    void set(int index, Object element);
+
+    /**
+     * Removes all elements from this list.
+     */
+    void clear();
+
+    /**
+     * Checks whether the list is empty.
+     *
+     * @return {@code true} if this list contains no elements.
+     */
+    boolean isEmpty();
+
+    /**
+     * Removes the element at the specified position in this list.
+     *
+     * @param index the index of the node to remove.
+     */
+    void remove(int index);
+
+    /**
+     * Returns the size of the list.
+     *
+     * @return the number of elements in this list.
+     */
+    int size();
+
+    /**
+     * Copies a slice of the list.
+     *
+     * @param fromIndex low endpoint (inclusive) of the sublist.
+     * @param toIndex high endpoint (inclusive) of the sublist.
+     * @return a new {@code ILinkedList} with elements between {@code fromIndex}
+     * and {@code toIndex}, inclusively.
+     */
+    ILinkedList sublist(int fromIndex, int toIndex);
+
+    /**
+     * Checks whether an element exists in the list.
+     *
+     * @param element the object to check.
+     * @return {@code true} if this list contains the specified element value.
+     */
+    boolean contains(Object element);
+}
 
 /**
  * A basic singly linked list implementation using inner classes.
@@ -10,7 +88,7 @@ import java.util.Scanner;
  *
  * @version 1.0
  */
-public class SingleLinkedList implements ILinkedList {
+class SingleLinkedList implements ILinkedList {
 
     /**
      * An inner class that represents a Node for a Singly linked list.
@@ -572,5 +650,138 @@ public class SingleLinkedList implements ILinkedList {
 
         str.append(']');
         return str.toString();
+    }
+}
+
+interface IQueue {
+
+    /**
+     * * Inserts an item at the queue front.
+     */
+    public void enqueue(Object item);
+
+    /**
+     * * Removes the object at the queue rear and returnsit.
+     */
+    public Object dequeue();
+
+    /**
+     * * Tests if this queue is empty.
+     */
+    public boolean isEmpty();
+
+    /**
+     * * Returns the number of elements in the queue
+     */
+    public int size();
+}
+
+public class LinkedListQueue implements IQueue {
+
+    /**
+     * Underlying single linked list that stores queue elements.
+     */
+    private SingleLinkedList list;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        LinkedListQueue queue = new LinkedListQueue();
+        queue.list = SingleLinkedList.readFromStdin(scanner);
+
+        String operation = scanner.nextLine();
+
+        switch (operation) {
+            case "enqueue": {
+                Integer num = Integer.parseInt(scanner.nextLine());
+                queue.enqueue(num);
+                System.out.println(queue);
+                break;
+            }
+            case "dequeue": {
+                queue.dequeue();
+                System.out.println(queue);
+                break;
+            }
+            case "isEmpty": {
+                if (queue.isEmpty()) {
+                    System.out.println("True");
+                } else {
+                    System.out.println("False");
+                }
+                break;
+            }
+            case "size": {
+                System.out.println(queue.size());
+                break;
+            }
+            default:
+                scanner.close();
+                throw new AssertionError();
+        }
+
+        scanner.close();
+    }
+
+    /**
+     * Constructs an empty linked-based queue.
+     */
+    public LinkedListQueue() {
+        list = new SingleLinkedList();
+    }
+
+    /**
+     * Adds an item to the end of the queue.
+     *
+     * @param item the element to be enqueued
+     */
+    @Override
+    public void enqueue(Object item) {
+        // queue front is the left side in output
+        list.addHead(item);
+    }
+
+    /**
+     * Removes and returns the element at the front of the queue. If the queue
+     * is empty this method delegates to the underlying list behavior (may
+     * return null or throw based on that implementation).
+     *
+     * @return the dequeued element, or null if the queue is empty
+     */
+    @Override
+    public Object dequeue() {
+        if (list.isEmpty()) {
+            throw new Error("Underflow");
+        }
+
+        // remove queue rear (right side in output)
+        Object rear = list.getTail();
+        list.remove(list.size() - 1); // O(n) in singly linked list
+        return rear;
+    }
+
+    /**
+     * Checks whether the queue is empty.
+     *
+     * @return true if the queue contains no elements, false otherwise
+     */
+    @Override
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    /**
+     * Returns the number of elements in the queue.
+     *
+     * @return the size of the queue
+     */
+    @Override
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    public String toString() {
+        // prints head -> tail, which now matches required format
+        return list.toString();
     }
 }
